@@ -1,0 +1,144 @@
+<form ng-form="addemployye">
+
+    <span class="label">{{title}}</span>
+    
+    
+    <table class="table">
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>
+            
+            <input type="text" [(ngModel)]="associateItem.name" name="nametext" id="input${1/(\w+)/\u\1/g}" class="form-control" value="" required="required" pattern="" title="">
+            
+          </td>
+          <td colspan="4">
+              
+              <img [src]="SelectedImage" class="img-responsive" alt="Image" width="40" height="30"> <br>
+              <input type="file" name="imgupload" accept=".jpg, .jpeg, .png" [(ngModel)]="associateItem.image" (change)="ChangeImage($event)">
+            </td>
+            <td rowspan= "4">
+              
+              <div >
+                
+                <button type="button" [style.border-width]="greenButtonStyle" (click)="SelectStatus(1, 0, 0)" class="btn btn-default statusbutton" style="background-color:green;color:wheat;">Green </button>
+              <br>
+              <br>
+                <button type="button" [style.border-width]="blueButtonStyle" (click)="SelectStatus(0, 1, 0)" class="btn btn-default statusbutton" style="background-color:blue;color:wheat;"> Blue </button>
+                <br>
+                <br>
+               
+               <button type="button" [style.border-width]="redButtonStyle" (click)="SelectStatus(0, 0, 1)" class="btn btn-default statusbutton" style="background-color:red;color:wheat;">Red</button>
+                
+              </div>
+              
+            </td>
+            <td rowspan="4">
+                <div >
+                    <button type="button"  [style.border-width]="level1style" (click)="SelectLevel(1, 0, 0)" class="btn btn-default levelbutton">L1</button>
+                    <br>
+                    <br>
+                    <button type="button"  [style.border-width]="level2style" (click)="SelectLevel(0, 1, 0)" class="btn btn-default levelbutton"> L2 </button>
+                    <br>
+                    <br>
+                    <button type="button" [style.border-width]="level3style" (click)="SelectLevel(0, 0, 1)" class="btn btn-default levelbutton">L3</button>
+                  </div>
+            </td>
+            <td rowspan="4">
+              Remarks
+            </td>
+            <td rowspan="4">
+              
+              <textarea name="remarkstext" [(ngModel)]="associateItem.remarks" id="input${1/(\w+)/\u\1/g}" class="form-control" rows="3" required="required"></textarea>
+              
+            </td>
+        </tr> 
+        <tr>
+          <td>Associate ID</td>
+          <td>
+           <input type="text" disabled [(ngModel)]="associateItem.associateid" name="txtid" id="input${1/(\w+)/\u\1/g}" class="form-control" value="" required="required" pattern="" title="">
+          </td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>
+    
+          <input type="email" [(ngModel)]="associateItem.email" name="txtemail" id="input${1/(\w+)/\u\1/g}" class="form-control" value="" required="required" title="">
+          
+          </td>
+        </tr>
+        <tr>
+          <td>Mobile</td>
+          <td>
+            
+            <input type="tel" [(ngModel)]="associateItem.mobileNo" name="txtmobile" id="input${1/(\w+)/\u\1/g}" class="form-control" value="" required="required" title="">
+            
+          </td>
+          
+        </tr>
+      </tbody>
+    </table>
+    
+    <br>
+    <br>
+    
+    
+    <span class="label">Skills</span>
+    
+    <div  class="row" *ngIf="isUpdate" >
+
+        <tr *ngFor = "let item of AssociateSkillsList" >
+            <!-- <td>{{skillName(item.skillid)}}</td>              -->
+            <td>{{skillName(item.skillid)}}</td>
+            <td >
+                <input type="range"  id="range" min="0" max="20" [value]='item.rating' (change) ="SetRating(item,Transvalue.value)"
+                #Transvalue> 
+            </td>           
+          </tr>
+        </div>
+
+          <div  class="row" *ngIf="!isUpdate" >
+          <tr *ngFor = "let item of SkillList" >
+              <td>{{item.skillname}}</td>             
+              <td >
+                  <input type="range"  id="range" min="0" max="20" value="0"   
+                  (input)="SetRating(item,Transvalue.value)" #Transvalue> 
+             
+              </td>           
+            </tr>
+    
+      </div>
+    
+    
+      <br>
+      <br>
+    
+    <table>
+    <tr>
+      <td>
+        Strength : 
+      </td>
+      <td>
+        <input type="text" [(ngModel)]="associateItem.strength" name="strenghttext" id="input${1/(\w+)/\u\1/g}" class="form-control" value="" required="required" pattern="" title="">
+      </td>
+      <td>
+        Weakness : 
+      </td>
+      <td>
+          <input type="text" [(ngModel)]="associateItem.weakness" name="weaknesstext" id="input${1/(\w+)/\u\1/g}" class="form-control" value="" required="required" pattern="" title="">
+    
+      </td>
+    
+    </tr>
+    
+    </table>
+    
+    <br>
+    <br>
+      
+   
+    <button type="button"  *ngIf="!isUpdate"(click)="AddAssociate()" class="btn btn-primary">Save</button>
+    
+    <button type="button"  *ngIf="isUpdate"(click)="UpdateAssociate()" class="btn btn-primary">Update</button>
+    <button type="button" class="btn btn-default"  [routerLink]="['../dashboard']">Cancel</button>
+    </form>
